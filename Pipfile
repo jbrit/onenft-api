@@ -15,6 +15,7 @@ siwe = "*"
 flask-cors = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
