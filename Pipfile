@@ -13,6 +13,8 @@ marshmallow = "*"
 pyjwt = "*"
 siwe = "*"
 flask-cors = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
 
 [dev-packages]
 
