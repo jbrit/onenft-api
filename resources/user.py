@@ -3,8 +3,9 @@ from auth_middleware import token_required
 from siwe import SiweMessage
 from serializers.user import LoginResponse, SiweLoginSchema, UserSchema
 from flask_apispec import marshal_with, use_kwargs
-from utils import Resource
+from utils import Resource, update_object_from_dict
 from flask import abort, current_app
+from marshmallow import fields
 import models
 import jwt
 
@@ -50,3 +51,23 @@ class Me(Resource):
     def get(self, **kwargs):
         return kwargs.get('current_user')
 
+    @token_required
+    @use_kwargs(UserSchema(partial=True))
+    @marshal_with(UserSchema())
+    def put(self, current_user, **kwargs):
+        update_object_from_dict(current_user, kwargs)
+        models.db.session.commit()
+        return current_user
+
+
+class User(Resource):
+    @use_kwargs({'address': fields.Str()}, location="query")
+    @marshal_with(UserSchema())
+    def get(self, address):
+        return models.db.get_or_404(models.User, address)
+
+
+class Users(Resource):
+    @marshal_with(UserSchema(many=True))
+    def get(self):
+        return models.User.query.all()
