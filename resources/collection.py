@@ -1,10 +1,11 @@
 from functools import wraps
 from auth_middleware import token_required
+from constants import ADDRESS_REGEX
 from serializers.collection import CollectionSchema
 from flask_apispec import marshal_with, use_kwargs
 from utils import Resource, update_object_from_dict
 from flask import abort
-from marshmallow import fields
+from marshmallow import fields, validate
 import models
 
 def collection_owner(f):
@@ -27,7 +28,7 @@ class Collections(Resource):
         """
         return models.Collection.query.all()
     
-    @use_kwargs({'collection_address': fields.Str()}, location="query") # it passes collection_address to the function
+    @use_kwargs({'collection_address': fields.Str(validate=validate.Regexp(ADDRESS_REGEX))}, location="query") # it passes collection_address to the function
     @use_kwargs(CollectionSchema())
     @marshal_with(CollectionSchema())
     @token_required
