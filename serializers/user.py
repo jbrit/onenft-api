@@ -5,6 +5,7 @@ class UserSchema(Schema):
     active = fields.Boolean(dump_only=True)
     name = fields.Str()
     profile_picture = fields.Str()
+    collections = fields.Nested('CollectionSchema', many=True, dump_only=True)
 
 class SiweLoginSchema(Schema):
     signature = fields.Str(required=True)
