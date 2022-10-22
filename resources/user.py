@@ -54,7 +54,7 @@ class Me(Resource):
     @token_required
     @use_kwargs(UserSchema(partial=True))
     @marshal_with(UserSchema())
-    def put(self, current_user, **kwargs):
+    def patch(self, current_user, **kwargs):
         update_object_from_dict(current_user, kwargs)
         models.db.session.commit()
         return current_user

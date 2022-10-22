@@ -1,0 +1,1 @@
+COLLECTION_CATEGORIES = ['art', 'music', 'trading card', 'collectibles', 'photography', 'virtual world', None]
