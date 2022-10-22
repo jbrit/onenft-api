@@ -22,6 +22,9 @@ def collection_owner(f):
 class Collections(Resource):
     @marshal_with(CollectionSchema(many=True))
     def get(self):
+        """
+        Get all collections
+        """
         return models.Collection.query.all()
     
     @use_kwargs({'collection_address': fields.Str()}, location="query") # it passes collection_address to the function
@@ -29,6 +32,9 @@ class Collections(Resource):
     @marshal_with(CollectionSchema())
     @token_required
     def post(self, current_user, collection_address, **kwargs):
+        """
+        Create a new collection, only the owner can create a collection
+        """
         # check if collection exists
         collection = models.Collection.query.filter_by(address=collection_address).first()
         if collection is not None:
@@ -44,6 +50,9 @@ class Collection(Resource):
     @use_kwargs({'address': fields.Str()}, location="query")
     @marshal_with(CollectionSchema())
     def get(self, address):
+        """
+        Get a collection by address
+        """
         return models.db.get_or_404(models.Collection, address)
 
     @use_kwargs({'collection_address': fields.Str()}, location="query") # it passes collection_address to the function
@@ -51,6 +60,9 @@ class Collection(Resource):
     @marshal_with(CollectionSchema())
     @collection_owner # it passes current_user to the function
     def patch(self, collection_address, current_user, **kwargs):
+        """
+        Update a created collection, only the owner can update a collection
+        """
         collection = models.db.get_or_404(models.Collection, collection_address)
         update_object_from_dict(collection, kwargs)
         models.db.session.commit()

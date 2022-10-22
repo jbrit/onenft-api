@@ -13,6 +13,9 @@ class Login(Resource):
     @use_kwargs(SiweLoginSchema())
     @marshal_with(LoginResponse())
     def post(self, **kwargs):
+        """
+        To log any user in
+        """
         message = kwargs.get('message')
 
         # replace camel with snake case to be parsed correctly
@@ -49,12 +52,18 @@ class Me(Resource):
     @token_required
     @marshal_with(UserSchema())
     def get(self, **kwargs):
+        """
+        Get the authenticated user
+        """
         return kwargs.get('current_user')
 
     @token_required
     @use_kwargs(UserSchema(partial=True))
     @marshal_with(UserSchema())
     def patch(self, current_user, **kwargs):
+        """
+        Update authenticated user
+        """
         update_object_from_dict(current_user, kwargs)
         models.db.session.commit()
         return current_user
@@ -64,10 +73,16 @@ class User(Resource):
     @use_kwargs({'address': fields.Str()}, location="query")
     @marshal_with(UserSchema())
     def get(self, address):
+        """
+        Get a user by address
+        """
         return models.db.get_or_404(models.User, address)
 
 
 class Users(Resource):
     @marshal_with(UserSchema(many=True))
     def get(self):
+        """
+        Get all users
+        """
         return models.User.query.all()
