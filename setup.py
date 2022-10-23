@@ -1,3 +1,5 @@
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import abort
@@ -17,9 +19,18 @@ def handle_request_parsing_error(err, req, schema, **kwargs):
     abort(422, errors=err.messages)
 
 
+
+
 migrate = Migrate()
 
 def create_app():
+    sentry_sdk.init(
+        dsn="https://00075a88100047cb8f4107d63658e980@o971311.ingest.sentry.io/4504034076131328",
+        integrations=[
+            FlaskIntegration(),
+        ],
+        traces_sample_rate=1.0
+    )
     app = Flask(__name__)
     cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config.update(app_config)
