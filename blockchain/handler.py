@@ -25,7 +25,7 @@ class OwnableNFT:
     return self.contract.functions.tokenURI(token_id).call()
 
   def get_token_count(self):
-    tokens = [-1, -1]
+    tokens = None
 
     # check if the contract starts at 0
     try:
@@ -54,7 +54,7 @@ class OwnableNFT:
       
   def get_tokens(self):
     tokens = self.get_token_count()
-    return [ self.get_token(i) for i in range(tokens[0], tokens[1] + 1)]
+    return [] if tokens is not None else [ self.get_token(i) for i in range(tokens[0], tokens[1] + 1)]
 
   def get_token(self, token_id):
     return {"id": token_id, "data": get_json_from_ipfs(self.get_token_uri(token_id))}
