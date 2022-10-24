@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ec64fc022cf8ea740a7c26cd9b4942149860387f9ebef8877bbf69d37357fa2a"
+            "sha256": "89f5befdebf19ea822a9b93633fecfc0600dad96adeaaf5c0507e19a400392e8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -387,12 +387,15 @@
             "version": "==0.5.9"
         },
         "eth-hash": {
-            "hashes": [
-                "sha256:3c884e4f788b38cc92cff05c4e43bc6b82686066f04ecfae0e11cdcbe5a283bd",
-                "sha256:8cde211519ff1a98b46e9057cb909f12ab62e263eb30a0a94e2f7e1f46ac67a0"
+            "extras": [
+                "pycryptodome"
             ],
-            "markers": "python_version >= '3.5' and python_version < '4'",
-            "version": "==0.3.3"
+            "hashes": [
+                "sha256:755f2f69e9e0db035181a1badf7f21901070de99a37a78a141a0a689a96c082b",
+                "sha256:ea0fd4e264c97c8aa739ae1cea7199db2e1f3bdf387cc9b81ef03c660f871335"
+            ],
+            "markers": "python_version >= '3.7' and python_version < '4'",
+            "version": "==0.5.0"
         },
         "eth-keyfile": {
             "hashes": [
@@ -426,11 +429,11 @@
         },
         "eth-utils": {
             "hashes": [
-                "sha256:74240a8c6f652d085ed3c85f5f1654203d2f10ff9062f83b3bad0a12ff321c7a",
-                "sha256:bf82762a46978714190b0370265a7148c954d3f0adaa31c6f085ea375e4c61af"
+                "sha256:11597842b0148c39d2638ad55897f9243479a8369be713b238b0684f8750215e",
+                "sha256:ac168aaa241fa0665e758b04009259d1b2b35daa0615fc563aad29f9ffc64d56"
             ],
             "markers": "python_version >= '3.5' and python_version < '4' and python_full_version != '3.5.2'",
-            "version": "==1.10.0"
+            "version": "==1.9.5"
         },
         "flask": {
             "hashes": [
@@ -1189,7 +1192,7 @@
                 "sha256:74732fbd4b2e2baff9d0ac61f268b3e7b25b09ca6572d619390a9d782c2289f2",
                 "sha256:9c2e72688a5b35881062ef4f9da01c4a1e922afeb3134cfc92f6b4b95bb7df06"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4'",
+            "index": "pypi",
             "version": "==5.31.1"
         },
         "webargs": {

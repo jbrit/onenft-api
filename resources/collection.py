@@ -1,5 +1,6 @@
 from functools import wraps
 from auth_middleware import token_required
+from blockchain.handler import OwnableNFT
 from constants import ADDRESS_REGEX
 from serializers.collection import CollectionSchema
 from flask_apispec import marshal_with, use_kwargs
@@ -68,4 +69,23 @@ class Collection(Resource):
         update_object_from_dict(collection, kwargs)
         models.db.session.commit()
         return collection
+
+class CollectionMetadata(Resource):
+    @use_kwargs({'collection_address': fields.Str()}, location="query")
+    def get(self, collection_address):
+        """
+        Get the metadata of a collection by address
+        """
+        nft = OwnableNFT(collection_address)
+        return {"tokens": nft.get_tokens()}
+
+class TokenMetadata(Resource):
+    @use_kwargs({'collection_address': fields.Str(), "token_id": fields.Int()}, location="query")
+    def get(self, collection_address, token_id):
+        """
+        Get the metadata of a token by address and id
+        """
+        nft = OwnableNFT(collection_address)
+        return nft.get_token(token_id)
+
 
